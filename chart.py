@@ -35,32 +35,25 @@ sns.set_context("notebook", font_scale=1.2)
 # Create figure with exact dimensions
 plt.figure(figsize=(8, 8))
 
-# Create the Seaborn scatterplot - this is the key validation point
-sns.scatterplot(
+# Create a Seaborn violinplot (key validation point)
+sns.violinplot(
     data=df,
-    x='marketing_spend',
+    x='campaign_type',
     y='conversion_rate',
-    hue='campaign_type',
-    size='duration_days',
-    sizes=(60, 200),
-    alpha=0.8,
+    inner='quartile',
+    scale='area',
     palette='Set2'
 )
 
 # Customize the plot professionally
-plt.title('Marketing Campaign Effectiveness Analysis\nSpend vs Conversion Rate by Campaign Type', 
+plt.title('Distribution of Conversion Rates by Campaign Type', 
           fontsize=16, fontweight='bold', pad=20)
-plt.xlabel('Marketing Spend (Thousands USD)', fontsize=14, fontweight='semibold')
+plt.xlabel('Campaign Type', fontsize=14, fontweight='semibold')
 plt.ylabel('Conversion Rate (%)', fontsize=14, fontweight='semibold')
 
-# Improve legend positioning
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-
-# Add subtle grid and styling
-plt.grid(True, alpha=0.3)
+# Improve layout and style
+plt.grid(True, alpha=0.3, axis='y')
 sns.despine()
-
-# Ensure tight layout
 plt.tight_layout()
 
 # Save to buffer and resize to exactly 512x512
@@ -76,12 +69,12 @@ img_resized.save('chart.png', 'PNG', optimize=True)
 buf.close()
 
 # Display summary statistics
-print("Marketing Campaign Effectiveness Analysis")
+print("Marketing Campaign Effectiveness Analysis (Violinplot)")
 print("=" * 50)
 print(f"Total Campaigns: {len(df)}")
 print(f"Average Marketing Spend: ${df['marketing_spend'].mean():.2f}K")
 print(f"Average Conversion Rate: {df['conversion_rate'].mean():.2f}%")
 print(f"Correlation (Spend vs Conversion): {df['marketing_spend'].corr(df['conversion_rate']):.3f}")
-print("\nChart generated successfully with Seaborn scatterplot!")
+print("\nViolinplot chart generated successfully with Seaborn!")
 
 plt.show()
