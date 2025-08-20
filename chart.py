@@ -12,7 +12,6 @@ np.random.seed(42)
 n_campaigns = 120
 
 # Generate data with clear patterns
-np.random.seed(42)
 campaign_data = {
     'marketing_spend': np.random.uniform(10, 100, n_campaigns),  # Marketing spend in thousands
     'conversion_rate': np.random.uniform(1, 20, n_campaigns),    # Conversion rate percentage
@@ -68,13 +67,13 @@ img_resized = img.resize((512, 512), Image.Resampling.LANCZOS)
 img_resized.save('chart.png', 'PNG', optimize=True)
 buf.close()
 
-# Display summary statistics
+# Display summary statistics (for validation)
 print("Marketing Campaign Effectiveness Analysis (Violinplot)")
 print("=" * 50)
 print(f"Total Campaigns: {len(df)}")
 print(f"Average Marketing Spend: ${df['marketing_spend'].mean():.2f}K")
 print(f"Average Conversion Rate: {df['conversion_rate'].mean():.2f}%")
 print(f"Correlation (Spend vs Conversion): {df['marketing_spend'].corr(df['conversion_rate']):.3f}")
-print("\nViolinplot chart generated successfully with Seaborn!")
+print("\nViolinplot chart generated successfully with Seaborn and saved as 'chart.png' (512x512 px).")
 
 plt.show()
